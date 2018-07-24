@@ -206,11 +206,11 @@
               <div class="form-group">
                   
                 <div class="panel">Subir Foto</div>
-                <input type="file" class="nuevaFoto" name="nuevaFoto">
+                <input type="file" id="nuevaFoto" name="nuevaFoto">
 
-                <p class="help-block">Peso máximo de la foto 2MB</p>
+                <p class="help-block">Peso máximo de la foto 200 MB</p>
 
-                <img src="views/img/usuarios/anonymous.png"  class="img-thumbnail previsualizar" width="100px" alt="">
+                <img src="views/img/usuarios/anonymous.png"  class="img-thumbnail" width="100px" alt="">
 
               </div><!--.form-group-->
 
@@ -228,16 +228,9 @@
             <button type="submit" class="btn btn-primary pull-right">Guardar Usuario</button>
 
           </div>
-          
-          <?php 
-
-            $crearUsuario = new ControladorUsuarios();
-            $crearUsuario -> ctrCrearUsuario();
-
-           ?>          
 
           </form>
-    
+
         </div>
 
       </div>
