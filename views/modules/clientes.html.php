@@ -46,45 +46,28 @@
             </thead>
         
             <tbody>
-
-              <?php 
-
-                $item = null;
-                $valor = null;
-
-                $clientes = ControladorCLientes::ctrMostrarClientes($item, $valor);
-
-                foreach ($clientes as $key => $value) {
-                  echo ' <tr>
-                            <td>'.($key+1).'</td>
-
-                            <td>'.$value["nombre"].'</td>
-
-                            <td>'.$value["empresa"].'</td>
-
-                            <td>'.$value["email"].'</td>
-
-                            <td>'.$value["telefono"].'</td>
-
-                            <td>'.$value["direccion"].'</td>
-
-                            <td>'.$value["compras"].'</td>
-
-                            <td>0000-00-00 00:00:00</td>
-
-                            <td>'.$value["fecha"].'</td>
-                            <td>
-                              
-                              <div class="btn-group">
-                                <button class="btn btn-warning"><i clasS="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger"><i clasS="fa fa-times"></i></button>
-                              </div>
               
+              <tr>
+                <td>1</td>
+                <td>Oscar Salas</td>
+                <td>Partido Acción Nacional</td>
+                <td>oscar.salas@pan.com.mx</td>
+                <td>312891231</td>
+                <td>Colonia del Valle</td>
+                <td>10</td>
+                <td>08-08-2018</td>
+                <td>01-01-2017</td>
+                <td>
+                  
+                  <div class="btn-group">
+                    <button class="btn btn-warning"><i clasS="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i clasS="fa fa-times"></i></button>
+                  </div>
+  
 
-                            </td>
-                          </tr>';
-                }
-               ?>
+                </td>
+
+              </tr>
 
             </tbody>
 
@@ -212,13 +195,6 @@
           </div>
 
           </form>
-
-          <?php 
-
-            $crearCliente = new ControladorCLientes();
-            $crearCliente -> ctrCrearCliente();
-
-           ?>
 
         </div>
 

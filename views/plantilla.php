@@ -41,6 +41,9 @@
   <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
 
+  <!-- iCheck -->
+  <link rel="stylesheet" href="views/plugins/iCheck/all.css">
+
   <!--====  End of PLUGINS CSS  ====-->
     
   <!--=====================================
@@ -64,6 +67,12 @@
   <script src="views/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
   <!-- Sweet Alert 2-->
   <script src="views/plugins/sweetalert2/sweetalert2.all.js"></script>
+  <!-- iCheck -->
+  <script src="views/plugins/iCheck/icheck.min.js"></script>
+  <!-- InputMask -->
+  <script src="views/plugins/input-mask/jquery.inputmask.js"></script>
+  <script src="views/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+  <script src="views/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
     <!--====  End PLUGINS DE JAVSCRIPT  ====-->
 </head>
@@ -131,5 +140,6 @@
 <script src="views/js/plantilla.js"></script>
 <script src="views/js/usuarios.js"></script>
 <script src="views/js/categorias.js"></script>
+<script src="views/js/productos.js"></script>
 </body>
 </html>
