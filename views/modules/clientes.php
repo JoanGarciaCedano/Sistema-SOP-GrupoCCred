@@ -76,7 +76,7 @@
                             <td>
                               
                               <div class="btn-group">
-                                <button class="btn btn-warning"><i clasS="fa fa-pencil"></i></button>
+                                <button class="btn btn-warning btnEditarCliente" data-toggle="modal" data-target="#modalEditarCliente" idCliente="'.$value["id"].'"><i clasS="fa fa-pencil"></i></button>
                                 <button class="btn btn-danger"><i clasS="fa fa-times"></i></button>
                               </div>
               
@@ -219,6 +219,128 @@
             $crearCliente -> ctrCrearCliente();
 
            ?>
+
+        </div>
+
+      </div>
+
+  </div>
+  
+  <!--====  End of MODAL EDITAR USUARIO  ====-->
+
+   <!--===========================================
+  =            MODAL EDITAR CLIENTE          =
+  ============================================-->
+  
+  <div id="modalEditarCliente" class="modal fade" role="dialog">
+
+      <div class="modal-dialog">
+          
+        <div class="modal-content">
+
+          <form role="form" method="post">
+
+            <!--===========================================
+            =           CABEZA DEL MODAL            =
+            ============================================-->
+
+          <div class="modal-header" style="background: #3c8dbc; color: white">
+
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Editar Cliente</h4>
+
+          </div>
+
+          <!--===========================================
+            =           CUERPO DEL MODAL            =
+            ============================================-->
+
+          <div class="modal-body">
+
+            <div class="box-body">
+              
+              <!-- ENTRADA PARA EL NOMBRE -->
+              <div class="form-group">
+                  
+                <div class="input-group">
+                  
+                  <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                  <input type="text" class="form-control input-lg" name="editarCliente" id="editarCliente" required>
+
+                </div><!--.input-group-->
+
+              </div><!--.form-group-->
+
+              <!-- ENTRADA PARA LA EMPRESA -->
+              <div class="form-group">
+                  
+                <div class="input-group">
+                  
+                  <span class="input-group-addon"><i class="fa fa-key"></i></span>
+
+                  <input type="text" class="form-control input-lg" name="editarEmpresa" id="editarEmpresa" required>
+
+                </div><!--.input-group-->
+
+              </div><!--.form-group-->
+
+               <!-- ENTRADA PARA EL EMAIL -->
+              <div class="form-group">
+                  
+                <div class="input-group">
+                  
+                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+
+                  <input type="email" class="form-control input-lg" name="editarEmail" id="editarEmail" required>
+
+                </div><!--.input-group-->
+
+              </div><!--.form-group-->
+
+               <!-- ENTRADA PARA EL TELEFONO -->
+              <div class="form-group">
+                  
+                <div class="input-group">
+                  
+                  <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+
+                  <input type="text" class="form-control input-lg" name="editarTelefono" id="editarTelefono" data-inputmask="'mask':'(99) 9999-9999'" data-mask required>
+
+                </div><!--.input-group-->
+
+              </div><!--.form-group-->
+
+              <!-- ENTRADA PARA LA DIRECCIÓN -->
+              <div class="form-group">
+                  
+                <div class="input-group">
+                  
+                  <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+
+                  <input type="text" class="form-control input-lg" name="editarDireccion" id="editarDireccion" required>
+
+                </div><!--.input-group-->
+
+              </div><!--.form-group-->
+
+            </div><!--.modal-body-->
+
+          </div><!--box-body-->
+
+          <!--===========================================
+            =           PIE DEL MODAL            =
+            ============================================-->
+
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+            <button type="submit" class="btn btn-primary pull-right">Guardar Cliente</button>
+
+          </div>
+
+          </form>
+
 
         </div>
 
