@@ -44,7 +44,7 @@
               </tr>
 
             </thead>
-        
+          
             <tbody>
 
               <?php 
@@ -77,7 +77,7 @@
                               
                               <div class="btn-group">
                                 <button class="btn btn-warning btnEditarCliente" data-toggle="modal" data-target="#modalEditarCliente" idCliente="'.$value["id"].'"><i clasS="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger"><i clasS="fa fa-times"></i></button>
+                                <button class="btn btn-danger btnEliminarCliente" idCliente="'.$value["id"].'"><i clasS="fa fa-times"></i></button>
                               </div>
               
 
@@ -268,6 +268,8 @@
 
                   <input type="text" class="form-control input-lg" name="editarCliente" id="editarCliente" required>
 
+                  <input type="hidden" id="idCliente" name="idCliente">
+
                 </div><!--.input-group-->
 
               </div><!--.form-group-->
@@ -340,6 +342,15 @@
           </div>
 
           </form>
+        
+        
+        <?php 
+
+          $editarCliente = new ControladorCLientes();
+          $editarCliente -> ctrEditarCliente();
+
+         ?>
+        
 
 
         </div>
@@ -348,5 +359,5 @@
 
   </div>
   
-  <!--====  End of MODAL AGREGAR USUARIO  ====-->
+  <!--====  End of MODAL EDITAR CLIENTE  ====-->
   

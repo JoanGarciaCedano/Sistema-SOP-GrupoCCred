@@ -91,6 +91,98 @@ class ControladorClientes{
 	}	
 	
 	/*=====  End of MOSTRAR CLIENTES  ======*/
+
+
+	/*======================================
+	=            EDITAR CLIENTE            =
+	======================================*/
+	
+	static public function ctrEditarCliente(){
+
+		if(isset($_POST["editarCliente"])){
+
+			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarCliente"]) &&
+			   preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarEmpresa"]) &&
+			   preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}+$/', $_POST["editarEmail"]) &&
+			   preg_match('/^[()\-0-9 ]+$/', $_POST["editarTelefono"]) &&
+			   preg_match('/^[#\.\-a-zA-Z0-9 ]+$/', $_POST["editarDireccion"])){
+
+				$tabla = "clientes";
+
+				$datos = array("id" => $_POST["idCliente"],
+							   "nombre" => $_POST["editarCliente"],
+							   "empresa" => $_POST["editarEmpresa"],
+							   "email" => $_POST["editarEmail"],
+							   "telefono" => $_POST["editarTelefono"],
+							   "direccion" => $_POST["editarDireccion"]
+							  );
+
+				$respuesta = ModeloClientes::mdlEditarCliente($tabla, $datos);
+
+				if($respuesta == "ok"){
+
+				   		echo '<script>
+						swal({
+
+							type: "success",
+							title: "¡El cliente ha sido editado correctamente!",
+							showConfirmButton: true,
+							confirmButtonText: "Cerrar",
+							closeOnConfirm: false
+							
+							}).then((result)=>{
+									if(result.value){
+										window.location = "clientes";
+									}
+								});	
+						</script>';
+
+					}
+
+			}else{
+
+				echo '<script>
+						swal({
+
+							type: "error",
+							title: "¡El cliente no puede ir con los campos vacíos o llevar caracteres especiales!",
+							showConfirmButton: true,
+							confirmButtonText: "Cerrar",
+							closeOnConfirm: false
+							
+							}).then((result)=>{
+									if(result.value){
+										window.location = "clientes";
+									}
+								});	
+					</script>';
+
+			}//else preg_match
+
+		}//if
+
+	}//function ctrCrearCliente
+	
+	/*=====  End of EDITAR CLIENTE  ======*/
+
+	/*========================================
+	=            ELIMINAR CLIENTE            =
+	========================================*/
+	
+	static public function ctrEliminarCliente(){
+
+		if(isset($_GET["idCliente"])){
+
+			$tabla = "clientes";
+			$datos = $_GET["idCliente"];
+
+		}
+
+	}
+	
+	/*=====  End of ELIMINAR CLIENTE  ======*/
+	
+	
 	
 	
 
