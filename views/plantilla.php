@@ -142,5 +142,6 @@
 <script src="views/js/categorias.js"></script>
 <script src="views/js/productos.js"></script>
 <script src="views/js/clientes.js"></script>
+<script src="views/js/ventas.js"></script>
 </body>
 </html>

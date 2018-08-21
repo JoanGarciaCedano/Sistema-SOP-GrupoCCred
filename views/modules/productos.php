@@ -73,8 +73,8 @@
                             echo '<td>'.$categoria["categoria"].'</td>
                             <td>'.$value["stock"].'</td>
                             <td>'.$value["unidad"].'</td>
-                            <td>'.$value["precio_compra"].'</td>
-                            <td>'.$value["precio_venta"].'</td>
+                            <td>$'.$value["precio_compra"].'</td>
+                            <td>$'.$value["precio_venta"].'</td>
                             <td>'.$value["fecha"].'</td>
                             <td>
                               

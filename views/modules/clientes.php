@@ -101,7 +101,7 @@
   <!-- /.content-wrapper -->
 
   <!--===========================================
-  =            MODAL AGREGAR CATEGORIA          =
+  =            MODAL AGREGAR CLIENTE            =
   ============================================-->
   
   <div id="modalAgregarCliente" class="modal fade" role="dialog">
@@ -226,7 +226,7 @@
 
   </div>
   
-  <!--====  End of MODAL EDITAR USUARIO  ====-->
+  <!--====  End of MODAL AGREGAR CLIENTE  ====-->
 
    <!--===========================================
   =            MODAL EDITAR CLIENTE          =
@@ -360,4 +360,17 @@
   </div>
   
   <!--====  End of MODAL EDITAR CLIENTE  ====-->
+  
+  <!--======================================
+  =            ELIMINAR CLIENTE            =
+  =======================================-->
+  
+    <?php 
+
+          $eliminarCliente = new ControladorCLientes();
+          $eliminarCliente -> ctrEliminarCliente();
+
+    ?>
+  
+  <!--====  End of ELIMINAR CLIENTE  ====-->
   
