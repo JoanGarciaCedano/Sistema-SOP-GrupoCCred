@@ -137,6 +137,9 @@ $(".tablaVentas tbody").on("click", "button.agregarProducto", function(){
 
 			sumarTotalPrecios();
 
+			//AGREGAR IMPUESTO
+			agregarImpuesto();
+
 		}
 
 
@@ -211,12 +214,17 @@ $(".formularioVenta").on("click", "button.quitarProducto", function(){
 	if($(".nuevoProducto").children().length == 0){
 
 		$("#nuevoTotalVenta").val(0);
+		$("#nuevoTotalVenta").attr("total",0);
+		$("#nuevoImpuestoVenta").val(0);
 
 	}else{
 
 		//SUMAR TOTAL DE PRECIOS
 
 		sumarTotalPrecios();
+
+		//AGREGAR IMPUESTO
+		agregarImpuesto();
 
 	}
 
@@ -324,6 +332,9 @@ $(".btnAgregarProducto").click(function(){
 
 			sumarTotalPrecios();
 
+			//AGREGAR IMPUESTO
+			agregarImpuesto();
+
 		}
 
 	});
@@ -399,8 +410,11 @@ $(".formularioVenta").on("change", "input.nuevaCantidadProducto", function(){
 
 		sumarTotalPrecios();
 
+		//AGREGAR IMPUESTO
+		agregarImpuesto();
+
 		/*=====  End of SI LA CANTIDAD ES SUPERIOR AL STOCK REGRESAR A LOS VALORES INICIALES  ======*/
-		
+
 		swal({
 			title: "La cantidad supera el stock",
 			text: "¡Sólo hay "+$(this).attr("stock")+" unidades!",
@@ -413,6 +427,9 @@ $(".formularioVenta").on("change", "input.nuevaCantidadProducto", function(){
 	//SUMAR TOTAL DE PRECIOS
 
 	sumarTotalPrecios();
+
+	//AGREGAR IMPUESTO
+	agregarImpuesto();
 
 });
 
@@ -444,7 +461,43 @@ function sumarTotalPrecios(){
 	var sumaTotalPrecio = arraySumaPrecio.reduce(sumaArrayPrecios);
 
 	$("#nuevoTotalVenta").val(sumaTotalPrecio);
+	$("#nuevoTotalVenta").attr("total",sumaTotalPrecio);
 }
 
 
 /*=====  End of FUNCION PARA SUMAR TODOS LOS PRECIOS  ======*/
+
+
+/*=========================================================
+=            FUNCION PARA AGREGAR EL IMPUESTO (IVA)            =
+=========================================================*/
+
+function agregarImpuesto(){
+
+	var impuesto = $("#nuevoImpuestoVenta").val();
+	var precioTotal = $("#nuevoTotalVenta").attr("total");
+	var precioImpuesto = Number(precioTotal * impuesto/100);
+	var totalConImpuesto = Number(precioImpuesto) + Number(precioTotal);
+
+	$("#nuevoTotalVenta").val(totalConImpuesto);
+
+	$("#nuevoPrecioImpuesto").val(precioImpuesto);
+
+	$("#nuevoPrecioNeto").val(precioTotal);
+
+}
+
+/*=====  End of FUNCION PARA AGREGAR EL IMPUESTO (IVA)  ======*/
+
+/*======================================================================================
+=            CUANDO CAMBIA EL IMPUESTO HACEMOS UN CHANGE A LA CAJA IMPUESTO            =
+======================================================================================*/
+
+$("#nuevoImpuestoVenta").change(function(){
+
+	agregarImpuesto();
+
+});
+
+/*=====  End of CUANDO CAMBIA EL IMPUESTO HACEMOS UN CHANGE A LA CAJA IMPUESTO  ======*/
+
