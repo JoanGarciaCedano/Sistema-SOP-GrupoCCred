@@ -36,6 +36,7 @@ require_once "../models/categorias.modelo.php";
 	 
 	 public $idProducto;
 	 public $traerProductos;
+	 public $nombreProducto;
 
 	 public function ajaxEditarProducto(){
 
@@ -48,6 +49,15 @@ require_once "../models/categorias.modelo.php";
 
 		 	echo json_encode($respuesta);
 
+
+	 	}else if($this->nombreProducto != ""){
+
+	 		$item = "descripcion";
+		 	$valor = $this->nombreProducto;
+
+		 	$respuesta = ControladorProductos::ctrMostrarProductos($item, $valor);
+
+		 	echo json_encode($respuesta);
 
 	 	}else{
 
@@ -101,6 +111,19 @@ if(isset($_POST["traerProductos"])){
 
 	$traerProductos = new AjaxProductos();
 	$traerProductos -> traerProductos = $_POST["traerProductos"];
+	$traerProductos -> ajaxEditarProducto();
+
+
+}
+
+ 	/*=======================================
+	 =          TRAER PRODUCTOS           =
+	 =======================================*/
+
+if(isset($_POST["nombreProducto"])){
+
+	$traerProductos = new AjaxProductos();
+	$traerProductos -> nombreProducto = $_POST["nombreProducto"];
 	$traerProductos -> ajaxEditarProducto();
 
 

@@ -102,7 +102,7 @@ $(".tablaVentas tbody").on("click", "button.agregarProducto", function(){
                     
                     '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto="'+idProducto+'"><i class="fa fa-times"></i></button></span>'+
 
-                    '<input type="text" class="form-control" id="agregarProducto" name="agregarProducto" value="'+descripcion+'" required readonly>'+
+                    '<input type="text" class="form-control agregarProducto" name="agregarProducto" value="'+descripcion+'" required readonly>'+
 
                   '</div>'+
 
@@ -112,19 +112,19 @@ $(".tablaVentas tbody").on("click", "button.agregarProducto", function(){
 
                 '<div class="col-xs-3">'+
                   
-                  '<input type="number" class="form-control" id="nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value="1" stock="'+stock+'" required>'+
+                  '<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value="1" stock="'+stock+'" required>'+
 
                 '</div>'+
 
                 '<!-- Precio del producto -->'+
 
-                '<div class="col-xs-3" style="padding-left: 0px">'+
+                '<div class="col-xs-3 ingresoPrecio" style="padding-left: 0px">'+
                   
                   '<div class="input-group">'+
                     
                     '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 
-                    '<input type="text" min="1" class="form-control" id="nuevoPrecioProducto" name="nuevoPrecioProducto" value="'+precio+'" readonly required>'+
+                    '<input type="text" min="1" class="form-control nuevoPrecioProducto" precioReal="'+precio+'" name="nuevoPrecioProducto" value="'+precio+'" readonly required>'+
 
                   '</div>'+
         
@@ -132,6 +132,11 @@ $(".tablaVentas tbody").on("click", "button.agregarProducto", function(){
 
                '</div>'
 			 );
+
+			// SUMAR TOTAL DE PRECIOS
+
+			sumarTotalPrecios();
+
 		}
 
 
@@ -203,6 +208,18 @@ $(".formularioVenta").on("click", "button.quitarProducto", function(){
 
 	$("button.recuperarBoton[idProducto='"+idProducto+"']").addClass("btn-primary agregarProducto");
 
+	if($(".nuevoProducto").children().length == 0){
+
+		$("#nuevoTotalVenta").val(0);
+
+	}else{
+
+		//SUMAR TOTAL DE PRECIOS
+
+		sumarTotalPrecios();
+
+	}
+
 });
 
 
@@ -212,7 +229,11 @@ $(".formularioVenta").on("click", "button.quitarProducto", function(){
 =            AGREGANDO PRODUCTOS DESDE EL BOTON PARA DISPOSITIVOS MOVILES            =
 ====================================================================================*/
 
+var numProducto = 0;
+
 $(".btnAgregarProducto").click(function(){
+
+	numProducto++;
 
 	var datos = new FormData();
 	datos.append("traerProductos", "ok");
@@ -240,7 +261,7 @@ $(".btnAgregarProducto").click(function(){
                     
                     '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto><i class="fa fa-times"></i></button></span>'+
 
-                    '<select class="form-control nuevaDescripcionProducto" idProducto name="nuevaDescripcionProducto" required>'+
+                    '<select class="form-control nuevaDescripcionProducto" id="producto'+numProducto+'" idProducto name="nuevaDescripcionProducto" required>'+
 
                     '<option>Seleccione el producto</option>'+
 
@@ -252,21 +273,21 @@ $(".btnAgregarProducto").click(function(){
 
                 '<!-- Cantidad del producto -->'+
 
-                '<div class="col-xs-3">'+
+                '<div class="col-xs-3 ingresoCantidad">'+
                   
-                  '<input type="number" class="form-control" id="nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value="1" stock required>'+
+                  '<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value="1" stock required>'+
 
                 '</div>'+
 
                 '<!-- Precio del producto -->'+
 
-                '<div class="col-xs-3" style="padding-left: 0px">'+
+                '<div class="col-xs-3 ingresoPrecio" style="padding-left: 0px">'+
                   
                   '<div class="input-group">'+
                     
                     '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 
-                    '<input type="text" min="1" class="form-control" id="nuevoPrecioProducto" name="nuevoPrecioProducto" value readonly required>'+
+                    '<input type="text" min="1" class="form-control nuevoPrecioProducto" precioReal="" name="nuevoPrecioProducto" readonly required>'+
 
                   '</div>'+
         
@@ -283,17 +304,25 @@ $(".btnAgregarProducto").click(function(){
 
 			function funcionForEach(item, index){
 
-				$(".nuevaDescripcionProducto").append(
+				if(item.stock != 0){
+
+
+					$("#producto"+numProducto).append(
 
 					'<option idProducto="'+item.id+'" value="'+item.descripcion+'">'+item.descripcion+'</option>'
 
-				);
+					);
+
+				}	
 
 			}
 			
 			
 			/*=====  End of AGREGAMOS EL SELECT  ======*/
 			
+			//SUMAR TOTAL DE PRECIOS
+
+			sumarTotalPrecios();
 
 		}
 
@@ -311,10 +340,14 @@ $(".btnAgregarProducto").click(function(){
 
 $(".formularioVenta").on("change", "select.nuevaDescripcionProducto", function(){
 
-	var idProducto = $(this).attr("idProducto");
+	var nombreProducto = $(this).val();
+
+	var nuevoPrecioProducto = $(this).parent().parent().parent().children(".ingresoPrecio").children().children('.nuevoPrecioProducto');
+
+	var nuevaCantidadProducto = $(this).parent().parent().parent().children(".ingresoCantidad").children('.nuevaCantidadProducto');
 
 	var datos = new FormData();
-	datos.append("idProducto", idProducto);
+	datos.append("nombreProducto", nombreProducto);
 
 	$.ajax({
 
@@ -327,8 +360,9 @@ $(".formularioVenta").on("change", "select.nuevaDescripcionProducto", function()
 		dataType:"json",
 		success:function(respuesta){
 
-			console.log("respuesta", respuesta);
-
+			$(nuevaCantidadProducto).attr("stock", respuesta["stock"]);
+			$(nuevoPrecioProducto).val(respuesta["precio_venta"]);
+			$(nuevoPrecioProducto).attr("precioReal", respuesta["precio_venta"]);
 		}
 
 	});
@@ -337,3 +371,80 @@ $(".formularioVenta").on("change", "select.nuevaDescripcionProducto", function()
 
 
 /*=====  End of SELECCIONAR PRODUCTO   ======*/
+
+
+/*=============================================
+=            MODIFICAR LA CANTIDAD            =
+=============================================*/
+
+$(".formularioVenta").on("change", "input.nuevaCantidadProducto", function(){
+
+	var precio = $(this).parent().parent().children(".ingresoPrecio").children().children(".nuevoPrecioProducto");
+
+	var precioFinal = $(this).val() * precio.attr("precioReal");
+
+	precio.val(precioFinal);
+
+	if(Number($(this).val()) > Number($(this).attr("stock"))){
+
+		/*============================================================================================
+		=            SI LA CANTIDAD ES SUPERIOR AL STOCK REGRESAR A LOS VALORES INICIALES            =
+		============================================================================================*/
+				
+		$(this).val(1);
+
+		var precioFinal = $(this).val() * precio.attr("precioReal");
+
+		precio.val(precioFinal);
+
+		sumarTotalPrecios();
+
+		/*=====  End of SI LA CANTIDAD ES SUPERIOR AL STOCK REGRESAR A LOS VALORES INICIALES  ======*/
+		
+		swal({
+			title: "La cantidad supera el stock",
+			text: "¡Sólo hay "+$(this).attr("stock")+" unidades!",
+			type: "error",
+			confirmButtonText: "¡Cerrar!"
+		});
+
+	}
+
+	//SUMAR TOTAL DE PRECIOS
+
+	sumarTotalPrecios();
+
+});
+
+/*=====  End of MODIFICAR LA CANTIDAD  ======*/
+
+/*============================================================
+=            FUNCION PARA SUMAR TODOS LOS PRECIOS            =
+============================================================*/
+
+function sumarTotalPrecios(){
+
+	var precioItem = $(".nuevoPrecioProducto");
+	var arraySumaPrecio = [];
+
+
+	for(var i = 0; i < precioItem.length; i++){
+
+		arraySumaPrecio.push(Number($(precioItem[i]).val()));
+
+
+	}//for
+
+	function sumaArrayPrecios(total, numero){
+
+		return total + numero;
+
+	}
+
+	var sumaTotalPrecio = arraySumaPrecio.reduce(sumaArrayPrecios);
+
+	$("#nuevoTotalVenta").val(sumaTotalPrecio);
+}
+
+
+/*=====  End of FUNCION PARA SUMAR TODOS LOS PRECIOS  ======*/
