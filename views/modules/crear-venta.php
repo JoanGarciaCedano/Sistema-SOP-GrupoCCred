@@ -49,7 +49,7 @@
                       
                       <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
-                      <input type="text" class="form-control" id="nuevoVendedor" name="nuevoVendedor" value="<?php echo $_SESSION["nombre"];?>" readonly>
+                      <input type="text" class="form-control" id="nuevoVendedor" value="<?php echo $_SESSION["nombre"];?>" readonly>
 
                       <input type="hidden" name="idVendedor" value="<?php echo $_SESSION["id"];?>">
   
@@ -60,7 +60,7 @@
 
 
                   <!--========================================
-                  =       ENTRADA CODIGO DE LA VENTA         =
+                  =       ENTRADA CODIGO DEL CODIGO         =
                   =========================================-->
                   
                   <div class="form-group">
@@ -99,7 +99,7 @@
                   </div><!--.form-group-->
                   
                   <!--========================================
-                  =            ENTRADE DEL CLIENTE            =
+                  =            ENTRADA DEL CLIENTE            =
                   =========================================-->
                   
                   <div class="form-group">
@@ -229,6 +229,8 @@
 
 
                     </div>
+
+                    <input type="hidden" name="listaMetodoPago" id="listaMetodoPago">
 
                     <!-- Se retiró caja de 6 columntas para el codigo de transacción -->
 

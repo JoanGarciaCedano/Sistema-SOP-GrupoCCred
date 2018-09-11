@@ -551,19 +551,19 @@ $("#nuevoMetodoPago").change(function(){
 
 					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 
-					'<input type="text" class="form-control nuevoValorEfectivo" placeholder="000000" required>'+
+					'<input type="text" class="form-control" id="nuevoValorEfectivo" placeholder="000000" required>'+
 
 				'</div>'+
 
 			'</div>'+
 
-			'<div class="col-xs-4 capturarCambioEfectivo" style="padding-left:0px">'+
+			'<div class="col-xs-4" id="capturarCambioEfectivo" style="padding-left:0px">'+
 
 				'<div class="input-group">'+
 
 					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 
-					'<input type="text" class="form-control nuevoCambioEfectivo" name="nuevoCambioEfectivo" placeholder="000000" readonly required>'+
+					'<input type="text" class="form-control" id="nuevoCambioEfectivo" name="nuevoCambioEfectivo" placeholder="000000" readonly required>'+
 
 				'</div>'+
 
@@ -572,8 +572,11 @@ $("#nuevoMetodoPago").change(function(){
 
 		// AGREGAR FORMATO AL PRECIO
 
-		$('.nuevoValorEfectivo').number(true, 2);
-		$('.nuevoCambioEfectivo').number(true, 2);
+		$('#nuevoValorEfectivo').number(true, 2);
+		$('#nuevoCambioEfectivo').number(true, 2);
+
+		//Listar método en la entrada
+		listarMetodos();
 
 	}else{
 
@@ -608,13 +611,13 @@ $("#nuevoMetodoPago").change(function(){
 =            CAMBIO EN EFECTIVO            =
 ==========================================*/
 
-$(".formularioVenta").on("change", "input.nuevoValorEfectivo", function(){
+$(".formularioVenta").on("change", "input#nuevoValorEfectivo", function(){
 
 	var efectivo = $(this).val();
 
 	var cambio = Number(efectivo) - Number($('#nuevoTotalVenta').val());
 
-	var nuevoCambioEfectivo = $(this).parent().parent().parent().children('.capturarCambioEfectivo').children().children('.nuevoCambioEfectivo');
+	var nuevoCambioEfectivo = $(this).parent().parent().parent().children('#capturarCambioEfectivo').children().children('#nuevoCambioEfectivo');
 
 	nuevoCambioEfectivo.val(cambio);
 
@@ -622,6 +625,19 @@ $(".formularioVenta").on("change", "input.nuevoValorEfectivo", function(){
 
 /*=====  End of CAMBIO EN EFECTIVO  ======*/
 
+
+/*==========================================
+=            CAMBIO TRANSACCIÓN           =
+==========================================*/
+
+$(".formularioVenta").on("change", "input#nuevoCodigoTransaccion", function(){
+
+	//Lista métodos
+	listarMetodos();
+
+});
+
+/*=====  End of CAMBIO TRANSACCIÓN   ======*/
 
 /*==================================================
 =            LISTAR TODOS LOS PRODUCTOS            =
@@ -649,10 +665,31 @@ function listarProductos(){
 	}
 
 
-	$("#listaMetodoPago").val(JSON.stringify(listaMetodos));
+	$("#listaProductos").val(JSON.stringify(listaProductos));
 
 }
 
 /*=====  End of LISTAR TODOS LOS PRODUCTOS  ======*/
 
+/*=============================================
+=            LISTAR METODO DE PÁGO            =
+=============================================*/
+
+function listarMetodos(){
+
+	var listaMetodos = "";
+
+	if($("#nuevoMetodoPago").val() == "Efectivo"){
+
+		$("#listaMetodoPago").val("Efectivo");
+
+	}else{
+
+		$("#listaMetodoPago").val($("#nuevoMetodoPago").val()+"-"+$("#nuevoCodigoTransaccion").val());
+
+	}
+
+}
+
+/*=====  End of LISTAR METODO DE PÁGO  ======*/
 
