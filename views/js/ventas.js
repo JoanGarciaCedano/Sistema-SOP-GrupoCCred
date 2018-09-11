@@ -102,7 +102,7 @@ $(".tablaVentas tbody").on("click", "button.agregarProducto", function(){
                     
                     '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto="'+idProducto+'"><i class="fa fa-times"></i></button></span>'+
 
-                    '<input type="text" class="form-control agregarProducto" name="agregarProducto" value="'+descripcion+'" required readonly>'+
+                    '<input type="text" class="form-control nuevaDescripcionProducto" idProducto="'+idProducto+'" name="agregarProducto" value="'+descripcion+'" required readonly>'+
 
                   '</div>'+
 
@@ -112,7 +112,7 @@ $(".tablaVentas tbody").on("click", "button.agregarProducto", function(){
 
                 '<div class="col-xs-3">'+
                   
-                  '<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value="1" stock="'+stock+'" required>'+
+                  '<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value="1" stock="'+stock+'" nuevoStock="'+Number(stock-1)+'" required>'+
 
                 '</div>'+
 
@@ -124,7 +124,7 @@ $(".tablaVentas tbody").on("click", "button.agregarProducto", function(){
                     
                     '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 
-                    '<input type="text" min="1" class="form-control nuevoPrecioProducto" precioReal="'+precio+'" name="nuevoPrecioProducto" value="'+precio+'" readonly required>'+
+                    '<input type="text" class="form-control nuevoPrecioProducto" precioReal="'+precio+'" name="nuevoPrecioProducto" value="'+precio+'" readonly required>'+
 
                   '</div>'+
         
@@ -139,6 +139,13 @@ $(".tablaVentas tbody").on("click", "button.agregarProducto", function(){
 
 			//AGREGAR IMPUESTO
 			agregarImpuesto();
+
+			//AGRUPAR PRODUCTOS EN FORMATO JSON
+			listarProductos();
+
+			//PRONER FORMATO AL PRECIO DE LOS PRODUCTOS
+
+			$(".nuevoPrecioProducto").number(true, 2);
 
 		}
 
@@ -226,6 +233,9 @@ $(".formularioVenta").on("click", "button.quitarProducto", function(){
 		//AGREGAR IMPUESTO
 		agregarImpuesto();
 
+
+		//AGRUPAR PRODUCTOS EN FORMATO JSON
+		listarProductos();
 	}
 
 });
@@ -269,7 +279,7 @@ $(".btnAgregarProducto").click(function(){
                     
                     '<span class="input-group-addon"><button type="button" class="btn btn-danger btn-xs quitarProducto" idProducto><i class="fa fa-times"></i></button></span>'+
 
-                    '<select class="form-control nuevaDescripcionProducto" id="producto'+numProducto+'" idProducto name="nuevaDescripcionProducto" required>'+
+                    '<select class="form-control nuevaDescripcionProducto" idProducto name="nuevaDescripcionProducto" required>'+
 
                     '<option>Seleccione el producto</option>'+
 
@@ -283,7 +293,7 @@ $(".btnAgregarProducto").click(function(){
 
                 '<div class="col-xs-3 ingresoCantidad">'+
                   
-                  '<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value="1" stock required>'+
+                  '<input type="number" class="form-control nuevaCantidadProducto" name="nuevaCantidadProducto" min="1" value="1" stock nuevoStock required>'+
 
                 '</div>'+
 
@@ -295,7 +305,7 @@ $(".btnAgregarProducto").click(function(){
                     
                     '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
 
-                    '<input type="text" min="1" class="form-control nuevoPrecioProducto" precioReal="" name="nuevoPrecioProducto" readonly required>'+
+                    '<input type="text" class="form-control nuevoPrecioProducto" precioReal="" name="nuevoPrecioProducto" readonly required>'+
 
                   '</div>'+
         
@@ -315,7 +325,7 @@ $(".btnAgregarProducto").click(function(){
 				if(item.stock != 0){
 
 
-					$("#producto"+numProducto).append(
+					$(".nuevaDescripcionProducto").append(
 
 					'<option idProducto="'+item.id+'" value="'+item.descripcion+'">'+item.descripcion+'</option>'
 
@@ -334,6 +344,10 @@ $(".btnAgregarProducto").click(function(){
 
 			//AGREGAR IMPUESTO
 			agregarImpuesto();
+
+			//PRONER FORMATO AL PRECIO DE LOS PRODUCTOS
+
+			$(".nuevoPrecioProducto").number(true, 2);
 
 		}
 
@@ -372,8 +386,13 @@ $(".formularioVenta").on("change", "select.nuevaDescripcionProducto", function()
 		success:function(respuesta){
 
 			$(nuevaCantidadProducto).attr("stock", respuesta["stock"]);
+			$(nuevaCantidadProducto).attr("nuevoStock", Number(respuesta["stock"])-1);
 			$(nuevoPrecioProducto).val(respuesta["precio_venta"]);
 			$(nuevoPrecioProducto).attr("precioReal", respuesta["precio_venta"]);
+
+			//AGRUPAR PRODUCTOS EN FORMATO JSON
+			listarProductos();
+
 		}
 
 	});
@@ -395,6 +414,10 @@ $(".formularioVenta").on("change", "input.nuevaCantidadProducto", function(){
 	var precioFinal = $(this).val() * precio.attr("precioReal");
 
 	precio.val(precioFinal);
+
+	var nuevoStock = Number($(this).attr("stock")) - $(this).val();
+
+	$(this).attr("nuevoStock", nuevoStock);
 
 	if(Number($(this).val()) > Number($(this).attr("stock"))){
 
@@ -430,6 +453,9 @@ $(".formularioVenta").on("change", "input.nuevaCantidadProducto", function(){
 
 	//AGREGAR IMPUESTO
 	agregarImpuesto();
+
+	//AGRUPAR PRODUCTOS EN FORMATO JSON
+	listarProductos();
 
 });
 
@@ -500,4 +526,133 @@ $("#nuevoImpuestoVenta").change(function(){
 });
 
 /*=====  End of CUANDO CAMBIA EL IMPUESTO HACEMOS UN CHANGE A LA CAJA IMPUESTO  ======*/
+
+//PRONER FORMATO AL PRECIO FINAL
+
+$("#nuevoTotalVenta").number(true, 2);
+
+/*==================================================
+=            SELECCIONAR METODO DE PAGO            =
+==================================================*/
+
+$("#nuevoMetodoPago").change(function(){
+
+	var metodo = $(this).val();
+
+	if (metodo == "Efectivo"){
+
+		$(this).parent().parent().removeClass("col-xs-6");
+		$(this).parent().parent().addClass("col-xs-4");
+
+		$(this).parent().parent().parent().children(".cajasMetodoPago").html(
+			'<div class="col-xs-4">'+
+
+				'<div class="input-group">'+
+
+					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
+
+					'<input type="text" class="form-control nuevoValorEfectivo" placeholder="000000" required>'+
+
+				'</div>'+
+
+			'</div>'+
+
+			'<div class="col-xs-4 capturarCambioEfectivo" style="padding-left:0px">'+
+
+				'<div class="input-group">'+
+
+					'<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>'+
+
+					'<input type="text" class="form-control nuevoCambioEfectivo" name="nuevoCambioEfectivo" placeholder="000000" readonly required>'+
+
+				'</div>'+
+
+			'</div>'
+			);
+
+		// AGREGAR FORMATO AL PRECIO
+
+		$('.nuevoValorEfectivo').number(true, 2);
+		$('.nuevoCambioEfectivo').number(true, 2);
+
+	}else{
+
+		$(this).parent().parent().removeClass('col-xs-4');
+
+		$(this).parent().parent().addClass('col-xs-6');
+
+		$(this).parent().parent().parent().children('.cajasMetodoPago').html(
+
+			'<div class="col-xs-6" style="padding-left: 0px;">'+
+                      
+                '<div class="input-group">'+
+                        
+                     '<input type="text" class="form-control" id="nuevoCodigoTransaccion" name="nuevoCodigoTransaccion" placeholder="Código transacción" required>'+
+
+                     '<span class="input-group-addon"><i class="fa fa-lock"></i></span>'+ 
+
+    	        '</div>'+
+          
+             '</div>'
+
+			);
+
+
+	}
+
+});
+
+/*=====  End of SELECCIONAR METODO DE PAGO  ======*/
+
+/*==========================================
+=            CAMBIO EN EFECTIVO            =
+==========================================*/
+
+$(".formularioVenta").on("change", "input.nuevoValorEfectivo", function(){
+
+	var efectivo = $(this).val();
+
+	var cambio = Number(efectivo) - Number($('#nuevoTotalVenta').val());
+
+	var nuevoCambioEfectivo = $(this).parent().parent().parent().children('.capturarCambioEfectivo').children().children('.nuevoCambioEfectivo');
+
+	nuevoCambioEfectivo.val(cambio);
+
+});
+
+/*=====  End of CAMBIO EN EFECTIVO  ======*/
+
+
+/*==================================================
+=            LISTAR TODOS LOS PRODUCTOS            =
+==================================================*/
+
+function listarProductos(){
+
+	var listarProductos = [];
+
+	var descripcion = $(".nuevaDescripcionProducto");
+
+	var cantidad = $(".nuevaCantidadProducto");
+
+	var precio = $(".nuevoPrecioProducto");
+
+	for(var i = 0; i < descripcion.length; i++){
+
+		listarProductos.push({"id":$(descripcion[i]).attr("idProducto"),
+							   "descripcion":$(descripcion[i]).val(),
+							   "cantidad":$(cantidad[i]).val(),
+							   "stock":$(cantidad[i]).attr("nuevoStock"),
+							   "precio":$(precio[i]).attr("precioReal"),
+							   "total":$(precio[i]).val()	
+							  });
+	}
+
+
+	$("#listaMetodoPago").val(JSON.stringify(listaMetodos));
+
+}
+
+/*=====  End of LISTAR TODOS LOS PRODUCTOS  ======*/
+
 

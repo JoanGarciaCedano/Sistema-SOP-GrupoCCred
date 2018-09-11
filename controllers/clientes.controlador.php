@@ -204,10 +204,5 @@ class ControladorClientes{
 	}
 	
 	/*=====  End of ELIMINAR CLIENTE  ======*/
-	
-	
-	
-	
-
 
 }

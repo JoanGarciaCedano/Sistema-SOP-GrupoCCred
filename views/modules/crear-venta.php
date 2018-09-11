@@ -142,7 +142,9 @@
 
                     
 
-                  </div>   
+                  </div>
+
+                  <input type="hidden" id="listaProductos" name="listaProductos">   
 
                   <!--=================================================
                   =            BOTON PARA AGREGAR PRODUCTO            =
@@ -185,7 +187,7 @@
                             <td style="width: 50%">
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                <input type="number" min="1" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="000000" readonly required>
+                                <input type="text" min="1" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="000000" readonly required>
                               </div>
                             </td>
                           </tr>
@@ -213,26 +215,22 @@
                     
                         <select class="form-control" id="nuevoMetodoPago" name="nuevoMetodoPago" required> 
                           <option value="">Seleccione método de pago</option>
-                          <option value="efectivo">Efectivo</option>
-                          <option value="tarjetaCredito">Tarjeta de Crédito</option>
-                          <option value="tarjetaDebito">Tarjeta de Débito</option>
+                          <option value="Efectivo">Efectivo</option>
+                          <option value="TC">Tarjeta de Crédito</option>
+                          <option value="TD">Tarjeta de Débito</option>
                         </select>
 
                       </div> <!--.form-group--> 
 
                     </div><!--.col-xs-6-->
 
-                    <div class="col-xs-6" style="padding-left: 0px;">
+                    <div class="cajasMetodoPago">
                       
-                      <div class="input-group">
-                        
-                        <input type="text" class="form-control" id="nuevoCodigoTransaccion" name="nuevoCodigoTransaccion" placeholder="Código transacción" required>
 
-                        <span class="input-group-addon"><i class="fa fa-lock"></i></span> 
 
-                      </div><!--.input-group-->
-          
-                    </div><!--.col-xs-6-->
+                    </div>
+
+                    <!-- Se retiró caja de 6 columntas para el codigo de transacción -->
 
                   </div> <!--.row-->
 

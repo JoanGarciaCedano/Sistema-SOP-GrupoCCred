@@ -73,6 +73,8 @@
   <script src="views/plugins/input-mask/jquery.inputmask.js"></script>
   <script src="views/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
   <script src="views/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+  <!-- jqueryNumber -->
+  <script src="views/plugins/jqueryNumber/jquerynumber.min.js"></script>
 
     <!--====  End PLUGINS DE JAVSCRIPT  ====-->
 </head>
