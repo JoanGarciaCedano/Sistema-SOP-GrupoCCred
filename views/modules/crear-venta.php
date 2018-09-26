@@ -18,7 +18,6 @@
 
     </section><!--content-header-principal-->
 
-    <!-- Main content -->
     <section class="content">
   
       <div class="row">
@@ -57,8 +56,6 @@
 
                   </div><!--.form-group-->
 
-
-
                   <!--========================================
                   =       ENTRADA CODIGO DEL CODIGO         =
                   =========================================-->
@@ -80,23 +77,30 @@
 
                             echo '<input type="text" class="form-control" id="nuevaVenta" name="nuevaVenta" value="10001" readonly>';
 
+
                           }else{
 
                             foreach ($ventas as $key => $value) {
-                              
+                          
+
+
                             }
 
                             $codigo = $value["codigo"] + 1;
 
+
+
                             echo '<input type="text" class="form-control" id="nuevaVenta" name="nuevaVenta" value="'.$codigo.'" readonly>';
+
 
                           }
 
                        ?>
   
-                    </div><!--.input-group-->
+  
+                    </div>
 
-                  </div><!--.form-group-->
+                  </div>
                   
                   <!--========================================
                   =            ENTRADA DEL CLIENTE            =
@@ -186,8 +190,12 @@
 
                             <td style="width: 50%">
                               <div class="input-group">
+
                                 <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
                                 <input type="text" min="1" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="000000" readonly required>
+
+                                <input type="hidden" name="totalVenta" id="totalVenta">
+
                               </div>
                             </td>
                           </tr>
@@ -249,6 +257,13 @@
             </div> <!--.box-footer-->
 
           </form><!--.form-->
+
+          <?php 
+
+          $guardarVenta = new ControladorVentas();
+          $guardarVenta -> ctrCrearVenta();
+
+           ?>
         
         </div>
 
