@@ -230,7 +230,7 @@
                               <div class="input-group">
 
                                 <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                <input type="text" min="1" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" value="<?php echo $venta["total"];?>" readonly required>
+                                <input type="text" min="1" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="<?php echo $venta["neto"];?>" value="<?php echo $venta["total"];?>" readonly required>
 
                                 <input type="hidden" name="totalVenta" id="totalVenta" value="<?php echo $venta["total"];?>">
 
