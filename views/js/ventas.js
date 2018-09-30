@@ -702,3 +702,16 @@ function listarMetodos(){
 
 /*=====  End of LISTAR METODO DE PÁGO  ======*/
 
+/*==========================================
+=            BOTON EDITAR VENTA            =
+==========================================*/
+
+$(".btnEditarVenta").click(function(){
+
+	var idVenta = $(this).attr("idVenta");
+
+	window.location = "index.php?ruta=editar-venta&idVenta="+idVenta;
+
+});
+
+/*=====  End of BOTON EDITAR VENTA  ======*/

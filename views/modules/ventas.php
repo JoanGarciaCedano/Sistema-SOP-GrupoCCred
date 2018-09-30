@@ -50,28 +50,61 @@
             </thead>
         
             <tbody>
-              
-              <tr>
-                <td>1</td>
-                <td>1000123</td>
-                <td>Joan García</td>
-                <td>Julio Gomez</td>
-                <td>TC-12311235123</td>
-                <td>$1,000.00</td>
-                <td>$1,160.00</td>
-                <td>08-08-2018</td>
 
-                <td>
+              <?php
+
+                $item = null;
+                $valor = null;   
+
+                $respuesta = ControladorVentas::ctrMostrarVentas($item, $valor);
+
+                foreach ($respuesta as $key => $value) {
                   
-                  <div class="btn-group">
-                    <button class="btn btn-info"><i clasS="fa fa-print"></i></button>
-                    <button class="btn btn-danger"><i clasS="fa fa-times"></i></button>
-                  </div>
-  
+                  echo '  
+    
+                    <tr>
+                      <td>'.($key+1).'</td>
+                      <td>'.$value["codigo"].'</td>';
 
-                </td>
+                      $itemCliente = "id";
+                      $valorCliente = $value["id_cliente"];
 
-              </tr>
+                      $respuestaCliente = ControladorClientes::ctrMostrarClientes($itemCliente, $valorCliente);
+
+                      echo '<td>'.$respuestaCliente["nombre"].'</td>';
+
+                      $itemUsuario = "id";
+                      $valorUsuario = $value["id_vendedor"];
+
+                      $respuestaUsuario = ControladorUsuarios::ctrMostrarUsuarios($itemUsuario, $valorUsuario);
+
+                      echo '<td>'.$respuestaUsuario["nombre"].'</td>
+                      <td>'.$value["metodo_pago"].'</td>
+                      <td>$'.number_format($value["neto"], 2).'</td>
+                      <td>$'.number_format($value["total"], 2).'</td>
+                      <td>'.$value["fecha"].'</td>
+
+                      <td>
+                        
+                        <div class="btn-group">
+                          <button class="btn btn-info"><i class="fa fa-print"></i></button>
+
+                          <button class="btn btn-warning btnEditarVenta" idVenta="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
+
+                          <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                        </div>
+        
+
+                      </td>
+
+                    </tr>
+
+                  ';
+
+                }
+               ?>
+              
+              
 
             </tbody>
 
