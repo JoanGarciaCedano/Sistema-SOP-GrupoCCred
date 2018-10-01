@@ -68,11 +68,13 @@ class ControladorVentas{
 
 			$item1b = "ultima_compra";
 
+			date_default_timezone_set('America/Mexico_City');
+
 			$fecha = date('Y-m-d');
 			$hora = date('H:i:s');
 			$valor1b = $fecha.' '.$hora;
 
-			$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes, $item1b, $valor1b, $valor);
+			$fechaCliente = ModeloClientes::mdlActualizarCliente($tablaClientes, $item1b, $valor1b, $valor);
 
 			/*=========================================
 			=            GUARDAR LA COMPRA            =
@@ -214,8 +216,9 @@ class ControladorVentas{
 
 					$item_2 = "id";
 					$valor_2 = $value["id"];
+					$orden = "id";
 
-					$traerProducto_2 = ModeloProductos::mdlMostrarProductos($tablaProductos_2, $item_2, $valor_2);
+					$traerProducto_2 = ModeloProductos::mdlMostrarProductos($tablaProductos_2, $item_2, $valor_2, $orden);
 
 					$item1a_2 = "ventas";
 					$valor1a_2 = $value["cantidad"] + $traerProducto_2["ventas"];
@@ -296,8 +299,153 @@ class ControladorVentas{
 
 	}
 
+
+
 	
 	/*=====  End of EDITAR VENTA  ======*/
+
+	/*======================================
+	=            ELIMINAR VENTA            =
+	======================================*/
+	
+	static public function ctrEliminarVenta(){
+
+		if(isset($_GET["idVenta"])){
+
+			$tabla = "ventas";
+
+			$item = "id";
+			$valor = $_GET["idVenta"];
+
+			$traerVenta = ModeloVentas::mdlMostrarVentas($tabla, $item, $valor);
+
+			/* ACTUALIZAR FECHA ÚLTIMA COMPRA */
+
+			$tablaClientes = "clientes";
+			
+			$itemVentas = null;
+			$valorVentas = null;
+
+			$traerVentas = ModeloVentas::mdlMostrarVentas($tabla, $itemVentas, $valorVentas);
+
+			$guardarFechas = array();
+
+			foreach ($traerVentas as $key => $value) {
+				
+				if($value["id_cliente"] == $traerVenta["id_cliente"]){
+
+					array_push($guardarFechas, $value["fecha"]);
+
+				}
+
+			}
+
+			if(count($guardarFechas) > 1){
+
+				if($traerVenta["fecha"] > $guardarFechas[count($guardarFechas)-2]){
+
+					$item = "ultima_compra";
+					$valor = $guardarFechas[count($guardarFechas)-2];
+					$valorIdCliente = $traerVenta["id_cliente"];
+					$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes, $item, $valor, $valorIdCliente);
+
+				}else{
+
+					$item = "ultima_compra";
+					$valor = $guardarFechas[count($guardarFechas)-1];
+					$valorIdCliente = $traerVenta["id_cliente"];
+					$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes, $item, $valor, $valorIdCliente);
+
+				}
+
+			}else{
+
+				$item = "ultima_compra";
+				$valor = "0000-00-00 00:00:00";
+				$valorIdCliente = $traerVenta["id_cliente"];
+				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes, $item, $valor, $valorIdCliente);
+
+			}
+
+			/*=====================================================================
+			=            FORMATEAR TABLA DE PRODUCTOS Y LA DE CLIENTES            =
+			=====================================================================*/
+			
+			$productos =  json_decode($traerVenta["productos"], true);
+
+				$totalProductosComprados = array();
+
+				foreach ($productos as $key => $value) {
+
+					array_push($totalProductosComprados, $value["cantidad"]);
+					
+					$tablaProductos = "productos";
+
+					$item = "id";
+					$valor = $value["id"];
+
+					$traerProducto = ModeloProductos::mdlMostrarProductos($tablaProductos, $item, $valor);
+
+					$item1a = "ventas";
+					$valor1a = $traerProducto["ventas"] - $value["cantidad"];
+
+					$nuevasVentas = ModeloProductos::mdlActualizarProducto($tablaProductos, $item1a, $valor1a, $valor);
+
+					$item1b = "stock";
+					$valor1b = $value["cantidad"] + $traerProducto["stock"];
+
+					$nuevoStock = ModeloProductos::mdlActualizarProducto($tablaProductos, $item1b, $valor1b, $valor);
+
+				}
+
+				$tablaClientes = "clientes";
+
+				$itemCliente = "id";
+				$valorCliente = $traerVenta["id_cliente"];
+
+				$traerCliente = ModeloClientes::mdlMostrarClientes($tablaClientes, $itemCliente, $valorCliente);
+
+				$item1a = "compras";
+				$valor1a = $traerCliente["compras"] - array_sum($totalProductosComprados);
+
+				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes, $item1a, $valor1a, $valorCliente);
+			
+			/*=====  End of FORMATEAR TABLA DE PRODUCTOS Y LA DE CLIENTES  ======*/
+			
+
+			/*=========================================
+			=            ELIMINAR LA VENTA            =
+			=========================================*/
+			
+			$respuesta = ModeloVentas::mdlEliminarVenta($tabla, $_GET["idVenta"]);
+
+			if($respuesta == "ok"){
+				   		echo '<script>
+						swal({
+
+							type: "success",
+							title: "¡La venta ha sido borrada correctamente!",
+							showConfirmButton: true,
+							confirmButtonText: "Cerrar",
+							closeOnConfirm: false	
+							}).then((result)=>{
+									if(result.value){
+										window.location = "ventas";
+									}
+								});	
+						</script>';
+
+					}
+			
+			/*=====  End of ELIMINAR LA VENTA  ======*/
+			
+
+		}
+
+	}
+	
+	/*=====  End of ELIMINAR VENTA  ======*/
+	
 	
 
 }

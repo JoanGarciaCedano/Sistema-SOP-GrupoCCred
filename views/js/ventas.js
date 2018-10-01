@@ -715,3 +715,49 @@ $(".btnEditarVenta").click(function(){
 });
 
 /*=====  End of BOTON EDITAR VENTA  ======*/
+
+
+/*====================================
+=            BORRAR VENTA            =
+====================================*/
+
+$(".btnEliminarVenta").click(function(){
+
+	var idVenta = $(this).attr("idVenta");
+
+	swal({
+
+		title: '¿Está seguro de borrar la venta?',
+		text: "¡Si no lo está puede cancelar la acción!",
+		type: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		cancelButtonText: 'Cancelar',
+		confirmButtonText: 'Si, borrar venta!'
+	}).then((result) => {
+
+		if(result.value){
+			window.location = "index.php?ruta=ventas&idVenta="+idVenta;
+		}
+
+	})
+
+});
+
+/*=====  End of BORRAR VENTA  ======*/
+
+
+/*========================================
+=            IMPRIMIR FACTURA            =
+========================================*/
+
+$(".tablas").on("click", ".btnImprimirFactura", function(){
+
+	var codigoVenta = $(this).attr("codigoVenta");
+
+	window.open("extensions/tcpdf/pdf/factura.php?codigo="+codigoVenta, "_blank");
+
+});
+
+/*=====  End of IMPRIMIR FACTURA  ======*/
