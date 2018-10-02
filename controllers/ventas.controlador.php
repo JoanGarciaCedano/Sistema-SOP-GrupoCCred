@@ -445,6 +445,23 @@ class ControladorVentas{
 	}
 	
 	/*=====  End of ELIMINAR VENTA  ======*/
+
+	/*=======================================
+	=            RANGO DE FECHAS            =
+	=======================================*/
+	
+	static public function ctrRangoFechasVentas($fechaInicial, $fechaFinal){
+
+		$tabla = "ventas";
+
+		$respuesta = ModeloVentas::mdlRangoFechasVentas($tabla, $fechaInicial, $fechaFinal);
+
+		return $respuesta;
+		
+	}
+	
+	/*=====  End of RANGO DE FECHAS  ======*/
+	
 	
 	
 

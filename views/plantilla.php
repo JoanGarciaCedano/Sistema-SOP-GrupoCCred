@@ -44,6 +44,10 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="views/plugins/iCheck/all.css">
 
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="views/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+
+
   <!--====  End of PLUGINS CSS  ====-->
     
   <!--=====================================
@@ -75,7 +79,10 @@
   <script src="views/plugins/input-mask/jquery.inputmask.extensions.js"></script>
   <!-- jqueryNumber -->
   <script src="views/plugins/jqueryNumber/jquerynumber.min.js"></script>
-
+  <!-- daterangepicker -->
+  <script src="views/bower_components/moment/min/moment.min.js"></script>
+  <script src="views/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+  
     <!--====  End PLUGINS DE JAVSCRIPT  ====-->
 </head>
 
