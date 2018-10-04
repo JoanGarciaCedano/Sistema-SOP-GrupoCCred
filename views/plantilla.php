@@ -47,6 +47,9 @@
   <!-- Daterange picker -->
   <link rel="stylesheet" href="views/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
+  <!-- Morris Chart -->
+  <link rel="stylesheet" href="views/bower_components/morris.js/morris.css">
+
 
   <!--====  End of PLUGINS CSS  ====-->
     
@@ -82,6 +85,9 @@
   <!-- daterangepicker -->
   <script src="views/bower_components/moment/min/moment.min.js"></script>
   <script src="views/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <!-- Morris.js charts -->
+  <script src="views/bower_components/raphael/raphael.min.js"></script>
+  <script src="views/bower_components/morris.js/morris.min.js"></script>
   
     <!--====  End PLUGINS DE JAVSCRIPT  ====-->
 </head>
@@ -120,7 +126,7 @@
          $_GET["ruta"] == "ventas" ||
          $_GET["ruta"] == "crear-venta" ||
          $_GET["ruta"] == "editar-venta" ||
-         $_GET["ruta"] == "reporte" || 
+         $_GET["ruta"] == "reportes" || 
          $_GET["ruta"] == "salir"){
 
         include "modules/".$_GET["ruta"].".php";
@@ -153,5 +159,6 @@
 <script src="views/js/productos.js"></script>
 <script src="views/js/clientes.js"></script>
 <script src="views/js/ventas.js"></script>
+<script src="views/js/reportes.js"></script>
 </body>
 </html>

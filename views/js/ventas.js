@@ -822,7 +822,7 @@ $('#daterange-btn').daterangepicker(
 =            CANCELAR RANGO DE FECHAS            =
 ================================================*/
 
-$(".daterangepicker .range_inputs .cancelBtn").on("click", function(){
+$(".daterangepicker.opensleft .range_inputs .cancelBtn").on("click", function(){
 
 	localStorage.removeItem("capturarRango");
 	localStorage.clear();
@@ -837,7 +837,7 @@ $(".daterangepicker .range_inputs .cancelBtn").on("click", function(){
 =            CAPTURAR HOY            =
 ====================================*/
 
-$(".daterangepicker .ranges li").on("click", function(event){
+$(".daterangepicker.opensleft .ranges li").on("click", function(event){
 
 	var textoHoy = $(this).attr("data-range-key");
 
@@ -848,14 +848,33 @@ $(".daterangepicker .ranges li").on("click", function(event){
 		var mes = d.getMonth()+1;
 		var año = d.getFullYear();
 
-		var fechaInicial = año+"-"+mes+"-"+dia;
+		if(mes < 10){
 
-		var fechaFinal = año+"-"+mes+"-"+dia;
+			var fechaInicial = año+"-0"+mes+"-"+dia;
+			var fechaFinal = año+"-0"+mes+"-"+dia;
 
-		localStorage.setItem("capturarRango", "Hoy");
+		}else if(dia < 10){
 
-		window.location = "index.php?ruta=ventas&fechaInicial="+fechaInicial+"&fechaFinal="+fechaFinal;
+			var fechaInicial = año+"-"+mes+"-0"+dia;
+			var fechaFinal = año+"-"+mes+"-0"+dia;
 
+		}else if(mes < 10 && dia < 10){
+
+			var fechaInicial = año+"-0"+mes+"-0"+dia;
+			var fechaFinal = año+"-0"+mes+"-0"+dia;
+
+		}else{
+
+			var fechaInicial = año+"-"+mes+"-"+dia;
+
+			var fechaFinal = año+"-"+mes+"-"+dia;
+
+		}
+					
+			localStorage.setItem("capturarRango", "Hoy");
+
+			window.location = "index.php?ruta=ventas&fechaInicial="+fechaInicial+"&fechaFinal="+fechaFinal;
+	
 	}
 
 });

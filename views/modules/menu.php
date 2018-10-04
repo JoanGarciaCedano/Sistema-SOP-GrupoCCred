@@ -55,7 +55,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="reporte">
+						<a href="reportes">
 							<i class="fa fa-circle-o"></i>
 							<span>Reporte de Ventas</span>
 						</a>
