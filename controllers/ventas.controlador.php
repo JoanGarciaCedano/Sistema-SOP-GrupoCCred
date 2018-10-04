@@ -198,7 +198,7 @@ class ControladorVentas{
 				$item1a = "compras";
 				$valor1a = $traerCliente["compras"] - array_sum($totalProductosComprados);
 
-				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes, $item1a, $valor1a, $valor);
+				$comprasCliente = ModeloClientes::mdlActualizarCliente($tablaClientes, $item1a, $valor1a, $valorCliente);
 
 				/*=============================================
 				ACTUALIZAR LAS COMPRAS DEL CLIENTE Y REDUCIR EL STOCK Y AUMENTAR LAS VENTAS DE LOS PRODUCTOS
