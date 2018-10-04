@@ -20,8 +20,9 @@ require_once "../models/categorias.modelo.php";
 
 		$item = "id_categoria";
 		$valor = $this->idCategoria;
+		$orden = "id";
 
-		$respuesta = ControladorProductos::ctrMostrarProductos($item, $valor);
+		$respuesta = ControladorProductos::ctrMostrarProductos($item, $valor, $orden);
 
 		echo json_encode($respuesta);
 
@@ -45,7 +46,9 @@ require_once "../models/categorias.modelo.php";
 	 		$item = null;
 		 	$valor = null;
 
-		 	$respuesta = ControladorProductos::ctrMostrarProductos($item, $valor);
+		 	$orden = "id";
+
+			$respuesta = ControladorProductos::ctrMostrarProductos($item, $valor, $orden);
 
 		 	echo json_encode($respuesta);
 
@@ -55,7 +58,9 @@ require_once "../models/categorias.modelo.php";
 	 		$item = "descripcion";
 		 	$valor = $this->nombreProducto;
 
-		 	$respuesta = ControladorProductos::ctrMostrarProductos($item, $valor);
+		 	$orden = "id";
+
+			$respuesta = ControladorProductos::ctrMostrarProductos($item, $valor, $orden);
 
 		 	echo json_encode($respuesta);
 
@@ -64,7 +69,9 @@ require_once "../models/categorias.modelo.php";
 	 		$item = "id";
 		 	$valor = $this->idProducto;
 
-		 	$respuesta = ControladorProductos::ctrMostrarProductos($item, $valor);
+		 	$orden = "id";
+
+			$respuesta = ControladorProductos::ctrMostrarProductos($item, $valor, $orden);
 
 		 	echo json_encode($respuesta);
 	 	}//else	 	

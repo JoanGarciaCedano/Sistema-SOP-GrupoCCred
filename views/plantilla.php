@@ -88,6 +88,8 @@
   <!-- Morris.js charts -->
   <script src="views/bower_components/raphael/raphael.min.js"></script>
   <script src="views/bower_components/morris.js/morris.min.js"></script>
+  <!-- ChartJS -->
+  <script src="views/bower_components/chart.js/Chart.js"></script>
   
     <!--====  End PLUGINS DE JAVSCRIPT  ====-->
 </head>
