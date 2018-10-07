@@ -24,20 +24,46 @@
 
         <div class="box-header with-border">
 
-          <!-- COLOCAMOS EL BOTÓN PARA EL RANGO DE FECHAS -->
-          <button type="button" class="btn btn-default" id="daterange-btn2">
-            
-            <span>
-              <i class="fa fa-calendar"></i> Rango de fecha
-            </span>
+          <div class="input-group">
 
-            <i class="fa fa-caret-down"></i>
+            <!-- COLOCAMOS EL BOTÓN PARA EL RANGO DE FECHAS -->
+            <button type="button" class="btn btn-default" id="daterange-btn2">
+              
+              <span>
+                <i class="fa fa-calendar"></i> Rango de fecha
+              </span>
 
-          </button>
+              <i class="fa fa-caret-down"></i>
+
+            </button>
+
+          </div>
 
           <div class="box-tools pull-right">
 
-          </div>
+            <?php 
+
+              if(isset($_GET["fechaInicial"])){
+
+                echo '<a href="views/modules/descargar-reporte.php?reporte=reporte&fechaInicial="'.$_GET["fechaInicial"].'&fechaFinal="'.$_GET["fechaFinal"].'">';
+
+              }else{
+
+                 echo '<a href="views/modules/descargar-reporte.php?reporte=reporte">';
+
+              }
+
+              
+
+             ?>
+          
+            
+             <button type="button" class="btn btn-success" id="daterange-btn2">
+               Descargar reporte en Excel
+            </button>
+            </a>
+
+          </div>             
 
         </div>
 
@@ -60,6 +86,26 @@
               <?php 
 
                 include "reportes/productos-mas-vendidos.php";
+
+               ?>
+
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+              
+              <?php 
+
+                include "reportes/vendedores.php";
+
+               ?>
+
+            </div>
+  
+            <div class="col-md-6 col-xs-12">
+              
+              <?php 
+
+                include "reportes/compradores.php";
 
                ?>
 
