@@ -45,7 +45,7 @@
 
               if(isset($_GET["fechaInicial"])){
 
-                echo '<a href="views/modules/descargar-reporte.php?reporte=reporte&fechaInicial="'.$_GET["fechaInicial"].'&fechaFinal="'.$_GET["fechaFinal"].'">';
+                echo '<a href="views/modules/descargar-reporte.php?reporte=reporte&fechaInicial='.$_GET["fechaInicial"].'&fechaFinal='.$_GET["fechaFinal"].'">';
 
               }else{
 

@@ -571,6 +571,23 @@ class ControladorVentas{
 	
 	/*=====  End of DESCARGAR EXCEL  ======*/
 	
+	/*============================================
+	=            SUMA TOTAL DE VENTAS            =
+	============================================*/
+	
+	public function ctrSumaTotalVentas(){
+
+		$tabla = "ventas";
+
+		$respuesta = ModeloVentas::mdlSumaTotalVentas($tabla);
+
+		return $respuesta;
+
+	}
+	
+	
+	/*=====  End of SUMA TOTAL DE VENTAS  ======*/
+	
 	
 	
 	
