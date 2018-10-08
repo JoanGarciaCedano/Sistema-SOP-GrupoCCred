@@ -1,3 +1,21 @@
+<?php 
+
+if($_SESSION["perfil"] == "Especial"){
+
+    echo '<script>
+
+      window.location = "inicio";
+
+    </script>';
+
+    return;
+
+  }
+
+
+ ?>
+
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -110,19 +128,22 @@
 
                             <i class="fa fa-print"></i>
 
-                          </button>
+                          </button>';
 
-                          <button class="btn btn-warning btnEditarVenta" idVenta="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
+                          if($_SESSION["perfil"] == "Administrador"){
 
-                          <button class="btn btn-danger btnEliminarVenta" idVenta="'.$value["id"].'"><i class="fa fa-times"></i></button>
-                        </div>
+                         echo'  <button class="btn btn-warning btnEditarVenta" idVenta="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
+
+                          <button class="btn btn-danger btnEliminarVenta" idVenta="'.$value["id"].'"><i class="fa fa-times"></i></button>';
+                        
+                        }
+
+                        echo '</div>
         
 
                       </td>
 
-                    </tr>
-
-                  ';
+                    </tr>';
 
                 }
                ?>

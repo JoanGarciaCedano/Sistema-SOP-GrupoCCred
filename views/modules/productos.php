@@ -1,28 +1,52 @@
+<?php
+
+if($_SESSION["perfil"] == "Vendedor"){
+
+  echo '<script>
+
+    window.location = "inicio";
+
+  </script>';
+
+  return;
+
+}
+
+?>
+
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+
     <section class="content-header">
+
       <h1>
+
         Administrar productos
+
       </h1>
+
       <ol class="breadcrumb">
+
         <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
+
         <li class="active">Administrar productos</li>
+
       </ol>
+
     </section>
 
-    <!-- Main content -->
     <section class="content">
 
-      <!-- Default box -->
       <div class="box">
 
         <div class="box-header with-border">
       
           <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarProducto">
+
             Agregar Producto
+
           </button>  
 
-        </div><!--.box-header-->
+        </div>
 
         <div class="box-body">
 
@@ -31,6 +55,7 @@
             <thead>
               
               <tr>
+
                 <th style="width: 10px">#</th>
                 <th>Imagen</th>
                 <th>Código</th>
@@ -43,67 +68,23 @@
                 <th>Precio de venta</th>
                 <th>Agregado</th>
                 <th>Acciones</th>
+
               </tr>
 
             </thead>
-        
-            <!-- <tbody>
-
-              <?php 
-
-                $item = null;
-                $valor = null;
-
-                $productos = ControladorProductos::ctrMostrarProductos($item, $valor);
-
-                foreach ($productos as $key => $value) {
-                    
-                    echo '<tr>
-                            <td>'.($key+1).'</td>
-                            <td><img src="views/img/productos/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-                            <td>'.$value["codigo"].'</td>
-                            <td>'.$value["codigoCCR"].'</td>
-                            <td>'.$value["descripcion"].'</td>';
-
-                            $item = "id";
-                            $valor = $value["id_categoria"];
-
-                            $categoria = ControladorCategorias::ctrMostrarCategorias($item, $valor);
-
-                            echo '<td>'.$categoria["categoria"].'</td>
-                            <td>'.$value["stock"].'</td>
-                            <td>'.$value["unidad"].'</td>
-                            <td>$'.$value["precio_compra"].'</td>
-                            <td>$'.$value["precio_venta"].'</td>
-                            <td>'.$value["fecha"].'</td>
-                            <td>
-                              
-                              <div class="btn-group">
-                                <button class="btn btn-warning"><i clasS="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger"><i clasS="fa fa-times"></i></button>
-                              </div>
-              
-
-                            </td>
-                          </tr>';
-
-                }
-
-               ?>
-              
-            </tbody> -->
 
           </table>
 
-        </div><!-- /.box-body -->
+          <input type="hidden" value="<?php echo $_SESSION['perfil']; ?>" id="perfilOculto">
+
+        </div>
         
       </div>
-      <!-- /.box -->
 
     </section>
-    <!-- /.content -->
+
   </div>
-  <!-- /.content-wrapper -->
+  
 
   <!--===========================================
   =            MODAL AGREGAR PRODUCTO           =

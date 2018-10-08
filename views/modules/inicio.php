@@ -26,7 +26,11 @@
         
         <?php 
 
+        if($_SESSION["perfil"] == "Administrador"){
+
           include "inicio/cajas-superiores.php";
+
+        }
 
          ?>
 
@@ -38,7 +42,11 @@
           
           <?php 
 
+          if($_SESSION["perfil"] == "Administrador"){
+
             include "reportes/grafico-ventas.php";
+
+          }
 
            ?>
 
@@ -48,7 +56,11 @@
           
         <?php 
 
+        if($_SESSION["perfil"] == "Administrador"){
+
           include "reportes/productos-mas-vendidos.php";
+
+        }
 
          ?>
 
@@ -58,7 +70,35 @@
           
         <?php 
 
+        if($_SESSION["perfil"] == "Administrador"){
+
           include "inicio/productos-recientes.php";
+
+        }
+
+         ?>
+
+        </div>
+
+        <!-- SI ES VENDEDOR O ESPECIAL -->
+
+        <div class="col-lg-12">
+          
+        <?php 
+
+        if($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Vendedor"){
+
+          echo '<div class="box box-success">
+
+          <div class="box-header">
+
+          <center><h1>Bienvenido@ '.$_SESSION["nombre"].'</h1></center>
+
+          </div>
+          
+          </div>';
+
+        }
 
          ?>
 
