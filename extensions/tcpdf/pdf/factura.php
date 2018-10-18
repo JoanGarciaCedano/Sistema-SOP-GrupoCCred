@@ -175,25 +175,41 @@ $pdf->writeHTML($bloque3, false, false, false, false, '');
 
 foreach ($productos as $key => $item) {
 
-$itemProducto = "descripcion";
-$valorProducto = $item["descripcion"];
+$itemProducto = "precio";
+$valorProducto = $item["precio"];
 $orden = null;
 
 $respuestaProducto = ControladorProductos::ctrMostrarProductos($itemProducto, $valorProducto, $orden);
 
-$valorUnitario = number_format($respuestaProducto["precio_venta"], 2);
+$valorUnitario = number_format($respuestaProducto["precio_venta"],2);
 
-$precioTotal = $item["total"];
+$precioTotal = number_format($item["total"], 2);
 
 $bloque4 = <<<EOF
 
 	<table style="font-size:10px; padding:5px 10px;">
+
 		<tr>
-			<td style="border: 1px solid #666; background-color:white; width:260px; text-align:center">$item[descripcion]</td>
-			<td style="border: 1px solid #666; background-color:white; width:80px; text-align:center">$item[cantidad]</td>
-			<td style="border: 1px solid #666; background-color:white; width:100px; text-align:center">$$valorUnitario</td>
-			<td style="border: 1px solid #666; background-color:white; width:100px; text-align:center">$$precioTotal</td>
+			
+			<td style="border: 1px solid #666; color:#333; background-color:white; width:260px; text-align:center">
+				$item[descripcion]
+			</td>
+
+			<td style="border: 1px solid #666; color:#333; background-color:white; width:80px; text-align:center">
+				$item[cantidad]
+			</td>
+
+			<td style="border: 1px solid #666; color:#333; background-color:white; width:100px; text-align:center">$ 
+				$item[precio]
+			</td>
+
+			<td style="border: 1px solid #666; color:#333; background-color:white; width:100px; text-align:center">$ 
+				$precioTotal
+			</td>
+
+
 		</tr>
+
 	</table>
 
 EOF;
